@@ -1,9 +1,11 @@
-name: CI
+name: CI/CD
 
 on:
   push:
     branches:
       - main
+    tags:
+      - "v*.*.*"
   pull_request:
     branches:
       - main
@@ -13,18 +15,50 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout rep
+      - name: Checkout repo
         uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
         with:
-          python-version: "3.10.12"
-        
+          python-version: "3.10"
+
       - name: Install dependencises
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-        
+
       - name: Run tests
         run: pytest -q
+
+  build_push_image:
+    needs: tests
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/'))
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v6
+
+      - name: Set up Docker BuildX
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login Github container registry
+        uses: docker/login-action@v3
+        with:
+          registery: ghcr.io
+          username: ${{github.actor}}
+          password: ${{secrets.GITHUB_TOKEN}}
+
+      - name: Build ans push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tag: |
+            ghcr.io/${{ github.repository_owner }}/CI_CD_Explorer:main
+            ghcr.io/${{ github.repository_owner }}/CI_CD_Explorer:${{github.sha}}
+            ghcr.io/${{ github.repository_owner }}/CI_CD_Explorer:${{github.ref_name}}
