@@ -12,14 +12,18 @@ on:
 
 jobs:
 
-  test-secrets:
+  test-secrets_file:
     runs-on: ubuntu-latest
     steps:
-      - name: Test n1
+      - name: create file
         env:
           TEST_1_ACTION: ${{ secrets.TEST_1 }}
         run: |
-          echo "$TEST_1_ACTION"
+          echo "This is a secret in a file $TEST_1_ACTION" > myfile.txt
+
+      - name: read file
+        run: |
+          cat myfile.txt
 
   # build:
   #   runs-on: ubuntu-latest
