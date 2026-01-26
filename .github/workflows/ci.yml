@@ -29,7 +29,11 @@ jobs:
         run: |
           mkdir -p ~/.ssh
           echo "$PRIVATE_KEY" | base64 -d > ~/.ssh/id_ed25519
+          echo "Random test" > ~/.ssh/test
           chmod 600 ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/test
+          cat ~/.ssh/test
+          ls -lah ~/.ssh
 
           ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
 
