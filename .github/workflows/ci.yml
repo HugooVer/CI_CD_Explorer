@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Test n1
-        env:
+        with:
           TEST_1_ACTION: ${{ secrets.TEST_1 }}
         run: |
           echo "$TEST_1_ACTION"
