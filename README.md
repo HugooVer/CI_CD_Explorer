@@ -1,4 +1,4 @@
 # CI_CD_Explorer
 
-### Just a littel kitchen unit conversion project to discover CI/CD and GitHub Actions
+### Just a littel project to test GitHub Actions and CI/CD pipeline
 
