@@ -1,0 +1,11 @@
+---
+
+- name: testtt
+  hosts: vps
+  become: true
+
+  vars_files:
+    - vars.yml
+
+  roles:
+    - common
