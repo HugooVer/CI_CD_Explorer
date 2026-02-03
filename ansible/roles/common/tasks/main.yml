@@ -3,6 +3,7 @@
 - name: Testr  cmd
   ansible.builtin.shell: |
     echo "test"
+  changed_when: false
 
 - name: Test copy file
   ansible.builtin.copy:
