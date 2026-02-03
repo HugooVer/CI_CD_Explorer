@@ -1,11 +1,13 @@
 ---
 
-- name: testtt
-  hosts: vps
-  become: true
+- name: Testr cmd
+  ansible.builtin.shell:
+    echo "test"
 
-  vars_files:
-    - vars.yml
-
-  roles:
-    - common
+- name: Test copy file
+  ansible.builtin.copy:
+    src: /srv/myfiles/foo.conf
+    dest: /etc/foo.conf
+    owner: foo
+    group: foo
+    mode: '0644'
