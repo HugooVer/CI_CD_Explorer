@@ -1,4 +1,4 @@
-name: Ansible files lint check 
+name: Ansible files lint check
 
 on:
   push:

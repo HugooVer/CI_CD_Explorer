@@ -1,6 +1,6 @@
 ---
 
-- name: Testr cmd
+- name: Testr  cmd
   ansible.builtin.shell: |
     echo "test"
 
