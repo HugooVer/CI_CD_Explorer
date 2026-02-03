@@ -1,7 +1,7 @@
 ---
 
 - name: Testr cmd
-  ansible.builtin.shell: uptime
+  ansible.builtin.shell: |
     echo "test"
 
 - name: Test copy file
