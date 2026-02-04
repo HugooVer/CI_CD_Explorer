@@ -22,6 +22,8 @@ jobs:
     steps:
       - name: use previous file
         run: |
+          pwd
+          ls -lah
           cat ./file_test
 
   test-secrets_file:
