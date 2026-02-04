@@ -12,6 +12,18 @@ on:
 
 jobs:
 
+  main_test:
+    uses: ./.github/workflows/test.yml
+  
+  need_previous:
+    needs:
+      - main_test
+    runs-on: ubuntu-latest
+    steps:
+      - name: use previous file
+        run: |
+          cat ./file_test
+
   test-secrets_file:
     runs-on: ubuntu-latest
     steps:

@@ -1,0 +1,14 @@
+name: Test
+
+on:
+  workflow_call:
+
+jobs:
+
+  worker:
+    runs-on: ubuntu-latest
+    steps:
+      - name: gen file
+        run: |
+          echo "this is my file test for multi workflow" > file_test
+
