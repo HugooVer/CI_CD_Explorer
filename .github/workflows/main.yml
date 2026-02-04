@@ -19,4 +19,4 @@ jobs:
         with:
           ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
           host: ${{ secrets.VPS_HOST }}
-          user: ${{ secrets.VPS_USER }}
+          # user: ${{ secrets.VPS_USER }}
