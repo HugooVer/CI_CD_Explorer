@@ -13,4 +13,9 @@ runs:
       env:
         SECRET: ${{ inputs.secret }}
       run: |
-        echo "test file + $SECRET + with composit" > testcomposit.txt
+        echo "<!doctype html>
+          <html>
+            <body>
+              <p>My test from Github Actions !!!</p>
+            </body>
+          </html>" > cv.html

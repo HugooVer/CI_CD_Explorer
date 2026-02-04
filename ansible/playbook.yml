@@ -1,11 +1,8 @@
 ---
 
-- name: Test for  test
+- name: Test for test
   hosts: vps
   become: true
-
-  vars_files:
-    - vars.yml
 
   roles:
     - common

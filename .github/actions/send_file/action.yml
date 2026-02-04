@@ -1,30 +1,31 @@
-name: 'test send with composit'
+name: 'test send Ansible'
 description: 'Send files via Ansible'
 inputs:
   ssh_key:
     description: 'key for ssh'
     required: true
   host:
-    description: 'host for ssh'
+    description: 'ip host for ssh'
     required: true
-  user:
-    description: 'user for ssh'
-    required: true
+  # user:
+  #   description: 'user for ssh'
+  #   required: true
 
 runs:
   using: "composite"
   steps:
-  - name: Setup SSH and transfert test file
-    shell: bash
-    env:
-      PRIVATE_KEY: ${{ inputs.ssh_key }}
-      HOST: ${{ inputs.host }}
-      USER: ${{ inputs.user }}
-    run: |
-      mkdir -p ~/.ssh
-      echo "$PRIVATE_KEY" > ~/.ssh/id_ed25519
-      chmod 600 ~/.ssh/id_ed25519
-
-      ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
-
-      scp -i ~/.ssh/id_ed25519 ./testcomposit.txt $USER@$HOST:/home/ubuntu/test
+  - name: Ansible playbook
+    uses: dawidd6/action-ansible-playbook@v2
+    with:
+      # Le fichier de "recette" Ansible
+      playbook: ./ansible/playbook.yml
+      
+      # La clé SSH passée via les inputs
+      key: ${{ inputs.ssh_key }}
+      
+      # Création d'un inventaire "à la volée"
+      inventory: |
+        [vps]
+        ${{ inputs.host }}
+      options: |
+        --extra-vars "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
