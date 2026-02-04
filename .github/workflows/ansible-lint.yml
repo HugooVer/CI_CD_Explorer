@@ -1,18 +1,21 @@
 name: Ansible files lint check
 
 on:
-  push:
-    paths:
-      - 'ansible/playbook.yml'
-      - 'ansible/roles/**'
-      - 'ansible/group_vars/**'
-      - 'ansible/*.yml'
-  pull_request:
-    paths:
-      - 'ansible/playbook.yml'
-      - 'ansible/roles/**'
-      - 'ansible/group_vars/**'
-      - 'ansible/*.yml'
+  workflow_call:
+
+# on:
+#   push:
+#     paths:
+#       - 'ansible/playbook.yml'
+#       - 'ansible/roles/**'
+#       - 'ansible/group_vars/**'
+#       - 'ansible/*.yml'
+#   pull_request:
+#     paths:
+#       - 'ansible/playbook.yml'
+#       - 'ansible/roles/**'
+#       - 'ansible/group_vars/**'
+#       - 'ansible/*.yml'
 jobs:
   ansible-lint:
     uses: ansible/ansible-content-actions/.github/workflows/ansible_lint.yaml@main

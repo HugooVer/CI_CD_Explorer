@@ -26,28 +26,28 @@ jobs:
           ls -lah
           cat ./file_test
 
-  test-secrets_file:
-    runs-on: ubuntu-latest
-    steps:
-      - name: create file
-        env:
-          TEST_1_ACTION: ${{ secrets.TEST_1 }}
-        run: |
-          echo "This is a secret in a file $TEST_1_ACTION" > myfile.txt
+  # test-secrets_file:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: create file
+  #       env:
+  #         TEST_1_ACTION: ${{ secrets.TEST_1 }}
+  #       run: |
+  #         echo "This is a secret in a file $TEST_1_ACTION" > myfile.txt
 
-      - name: Setup SSH and transfert test file
-        env:
-          PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          HOST: ${{ secrets.VPS_HOST }}
-          USER: ${{ secrets.VPS_USER }}
-        run: |
-          mkdir -p ~/.ssh
-          echo "$PRIVATE_KEY" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+  #     - name: Setup SSH and transfert test file
+  #       env:
+  #         PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+  #         HOST: ${{ secrets.VPS_HOST }}
+  #         USER: ${{ secrets.VPS_USER }}
+  #       run: |
+  #         mkdir -p ~/.ssh
+  #         echo "$PRIVATE_KEY" > ~/.ssh/id_ed25519
+  #         chmod 600 ~/.ssh/id_ed25519
 
-          ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+  #         ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
 
-          scp -i ~/.ssh/id_ed25519 ./myfile.txt $USER@$HOST:/home/ubuntu/test
+  #         scp -i ~/.ssh/id_ed25519 ./myfile.txt $USER@$HOST:/home/ubuntu/test
 
   # build:
   #   runs-on: ubuntu-latest

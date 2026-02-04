@@ -1,0 +1,22 @@
+name: Test composit
+
+on: [push]
+
+jobs:
+  runer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: file creation
+
+        uses: ./.github/actions/file_creation
+        with:
+          secret: ${{ secrets.TEST_1 }}
+
+      - name: test send with composit
+        uses: ./.github/actions/send_file
+        with:
+          ssh_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          host: ${{ secrets.VPS_HOST }}
+          user: ${{ secrets.VPS_USER }}

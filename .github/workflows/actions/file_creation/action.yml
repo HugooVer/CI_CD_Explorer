@@ -1,0 +1,16 @@
+name: 'file creation'
+description: 'create file'
+inputs:
+  secret:
+    description: 'secret for test'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Create file
+      shell: bash
+      env:
+        SECRET: ${{ inputs.secret }}
+      run: |
+        echo "test file + $SECRET + with composit" > testcomposit.txt

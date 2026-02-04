@@ -1,0 +1,30 @@
+name: 'test send with composit'
+description: 'Send files via Ansible'
+inputs:
+  ssh_key:
+    description: 'key for ssh'
+    required: true
+  host:
+    description: 'host for ssh'
+    required: true
+  user:
+    description: 'user for ssh'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+  - name: Setup SSH and transfert test file
+    shell: bash
+    env:
+      PRIVATE_KEY: ${{ inputs.ssh_key }}
+      HOST: ${{ inputs.host }}
+      USER: ${{ inputs.user }}
+    run: |
+      mkdir -p ~/.ssh
+      echo "$PRIVATE_KEY" > ~/.ssh/id_ed25519
+      chmod 600 ~/.ssh/id_ed25519
+
+      ssh-keyscan -H $HOST >> ~/.ssh/known_hosts
+
+      scp -i ~/.ssh/id_ed25519 ./testcomposit.txt $USER@$HOST:/home/ubuntu/test
