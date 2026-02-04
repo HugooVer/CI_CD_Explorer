@@ -3,7 +3,7 @@
 - name: Test copy file
   ansible.builtin.copy:
     src: ../cv.html
-    dest: /opt/website_cv/html
+    dest: /opt/website_cv/html/rename_test
     owner: root
     group: root
     mode: '0644'
