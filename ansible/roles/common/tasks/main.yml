@@ -2,7 +2,7 @@
 
 - name: Test copy file
   ansible.builtin.copy:
-    src: "../testcomposit.txt"
+    src: ../cv.html
     dest: /home/ubuntu/test
     owner: root
     group: root
