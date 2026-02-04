@@ -7,9 +7,9 @@ inputs:
   host:
     description: 'ip host for ssh'
     required: true
-  # user:
-  #   description: 'user for ssh'
-  #   required: true
+  user:
+    description: 'user for ssh'
+    required: true
 
 runs:
   using: "composite"
@@ -26,6 +26,6 @@ runs:
       # Création d'un inventaire "à la volée"
       inventory: |
         [vps]
-        ${{ inputs.host }}
+        ${{ inputs.host }} ansible_user=${{ inputs.user }}
       options: |
         --extra-vars "ansible_ssh_common_args='-o StrictHostKeyChecking=no'"
