@@ -2,7 +2,7 @@
 
 - name: Test copy file
   ansible.builtin.copy:
-    src: ./testcomposit.txt
+    src: "{{ playbook_dir }}/../testcomposit.txt"
     dest: /home/ubuntu/test
     owner: root
     group: root
